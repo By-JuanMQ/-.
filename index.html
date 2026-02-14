@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para mi Persona Especial 🌷</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #d81b60;
+            --whatsapp: #25d366;
+            --bg: #fdf2f4;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: var(--bg);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
+
+        /* Tarjeta Principal */
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(216, 27, 96, 0.1);
+            text-align: center;
+            z-index: 10;
+            max-width: 350px;
+            width: 85%;
+            border: 2px solid #fce4ec;
+        }
+
+        h1 { color: var(--primary); font-size: 1.6rem; margin-bottom: 15px; }
+        p { color: #5a5a5a; line-height: 1.6; font-size: 1.1rem; }
+
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: 0.3s;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(216, 27, 96, 0.3);
+        }
+
+        .btn-back {
+            background-color: #fce4ec;
+            color: var(--primary);
+            margin-top: 10px;
+        }
+
+        /* Botón WhatsApp Esquina */
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 25px;
+            right: 25px;
+            background-color: var(--whatsapp);
+            color: white;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 5px 15px rgba(0,0,0,0.15);
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            transition: 0.3s ease;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.15) rotate(15deg);
+        }
+
+        /* Animación de Flores */
+        .flower {
+            position: fixed;
+            top: -50px;
+            font-size: 24px;
+            user-select: none;
+            z-index: 1;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0.7; }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="https://wa.me/51989346364/?text=¡Me encantaron las flores! 🌷🪷" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <div class="card">
+        <div id="content">
+            </div>
+    </div>
+
+    <script>
+        const contentDiv = document.getElementById('content');
+        const flowers = ['🌷', '🪷', '🌸', '🌷']; // Lista de flores
+        let flowerInterval;
+
+        function showHome() {
+            stopFlowers();
+            contentDiv.innerHTML = `
+                <h1>Para alguien especial 🌷</h1>
+                <p>Presiona el botón para recibir un detalle que florece para ti.</p>
+                <button class="btn" onclick="showSurprise()">Abrir Sorpresa</button>
+            `;
+        }
+
+        function showSurprise() {
+            contentDiv.innerHTML = `
+                <h1>¡Feliz San Valentín! 🪷</h1>
+                <p>Que tu día sea tan hermoso como un jardín en primavera. Te quiero mucho.</p>
+                <button class="btn btn-back" onclick="showHome()">Volver al Inicio</button>
+            `;
+            startFlowers();
+        }
+
+        function startFlowers() {
+            if (flowerInterval) return;
+            flowerInterval = setInterval(() => {
+                const flower = document.createElement('div');
+                flower.classList.add('flower');
+                // Elige un emoji al azar de la lista
+                flower.innerHTML = flowers[Math.floor(Math.random() * flowers.length)];
+                
+                flower.style.left = Math.random() * 100 + 'vw';
+                flower.style.fontSize = (Math.random() * 20 + 20) + 'px';
+                flower.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                
+                document.body.appendChild(flower);
+                
+                // Limpiar el elemento después de que caiga
+                setTimeout(() => flower.remove(), 7000);
+            }, 300);
+        }
+
+        function stopFlowers() {
+            clearInterval(flowerInterval);
+            flowerInterval = null;
+        }
+
+        // Iniciar
+        showHome();
+    </script>
+</body>
+</html>
